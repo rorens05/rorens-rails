@@ -13,6 +13,5 @@ jobs:
           debug: true
           command: |
             ls
-            cd app
-            git pull
+            cd deployed/rorens-rails
             docker-compose down && docker-compose up -d
