@@ -18,4 +18,5 @@ jobs:
             echo "Docker compose running"
             /snap/bin/docker-compose -v
             /snap/bin/docker-compose down && /snap/bin/docker-compose up -d
+
             
