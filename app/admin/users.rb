@@ -96,8 +96,8 @@ ActiveAdmin.register User do
   end
 
   show do
-    start_date = Date.today
-    end_date = Date.today
+    start_date = Date.today.beginning_of_month
+    end_date = Date.today.end_of_month
     if params["date-range"].present?
       start_date = Date.strptime(params["date-range"].split(" - ")[0], '%m/%d/%Y')
       end_date = Date.strptime(params["date-range"].split(" - ")[1], '%m/%d/%Y')
