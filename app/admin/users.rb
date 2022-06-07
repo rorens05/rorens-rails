@@ -96,10 +96,17 @@ ActiveAdmin.register User do
   end
 
   show do
+    start_date = Date.today
+    end_date = Date.today
+    if params["date-range"].present?
+      start_date = Date.strptime(params["date-range"].split(" - ")[0], '%m/%d/%Y')
+      end_date = Date.strptime(params["date-range"].split(" - ")[1], '%m/%d/%Y')
+    end
+    
     panel user.name do
       tabs do
         tab 'Summary' do
-          render 'admin/charts/summary', user: user
+          render 'admin/charts/summary', user: user, start_date: start_date, end_date: end_date
         end
         tab 'General Information' do
           columns do

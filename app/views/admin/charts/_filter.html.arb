@@ -1,0 +1,6 @@
+
+
+form class: 'filter-form' do
+  input type: "text", class: "daterange", name: 'date-range', value: format_daterange(start_date, end_date)
+  input type: "submit"
+end

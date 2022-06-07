@@ -13,7 +13,6 @@ class Transaction < ApplicationRecord
   scope :expenses, -> { joins(:category).where(categories: {transaction_type: 'expense'}) }
   scope :incomes, -> { joins(:category).where(categories: {transaction_type: 'income'}) }
   scope :between_dates, ->(start_date, end_date){ where(schedule: start_date.beginning_of_day..end_date.end_of_day) }
-  default_scope { order(schedule: :desc) }
 
   def update_account_amount
     account.update_amount

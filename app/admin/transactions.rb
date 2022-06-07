@@ -4,6 +4,7 @@ ActiveAdmin.register Transaction do
   
   filter :account
   filter :category
+  filter :schedule
 
   form do |f|  
     f.semantic_errors *f.object.errors.keys
@@ -20,6 +21,7 @@ ActiveAdmin.register Transaction do
   index do
     selectable_column
     id_column
+    column :note
     column :account
     column :category
     column :amount do |transaction|
@@ -28,10 +30,6 @@ ActiveAdmin.register Transaction do
     
     column :type, sortable: "categories.transaction_type" do |transaction|
       status_tag transaction.category.transaction_type
-    end
-    
-    column :status do |transaction|
-      status_tag transaction.status
     end
     column :schedule
     

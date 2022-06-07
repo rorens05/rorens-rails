@@ -7,6 +7,8 @@
 //= require game_timer
 //= require chartkick
 //= require Chart.bundle
+//= require moment
+//= require daterangepicker
 
 jQuery(function() { 
   $("#quiz_game_status, #quiz_game_city_id, #quiz_game_sponsor_id, #quiz_game_radio_station_id").select2({
@@ -22,6 +24,18 @@ jQuery(function() {
   $("#roulette_dj_id").select2()
   $("#roulette_sponsor_id").select2()
   $("#roulette_city_ids").select2()
+  $(document).ready(function() {
+    $('input[class="daterange"]').daterangepicker({
+      ranges: {
+        'Today': [moment(), moment()],
+        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+     }
+    });
+  });
 })
 
 
