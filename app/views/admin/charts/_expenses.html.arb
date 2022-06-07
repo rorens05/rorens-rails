@@ -1,8 +1,9 @@
-expenses = transactions.between_dates(start_date, end_date).expenses.completed.joins(:category).group('categories.name').sum(:amount)
+filtered_transactions = transactions.between_dates(start_date, end_date)
+expenses = filtered_transactions.expenses.completed.joins(:category).group('categories.name').sum(:amount)
 
 # render
 div class: 'chart-container' do
-  h2 "Expenses #{format_currency transactions.between_dates(start_date, end_date).expenses.sum(:amount)}", class: 'text-center m-0'
+  h2 "Expenses #{format_currency filtered_transactions.expenses.sum(:amount)}", class: 'text-center m-0'
   div do
     bar_chart expenses, donut: true
   end
@@ -11,8 +12,7 @@ end
 div class: 'chart-container' do
   h2 "Daily Transactions", class: 'text-center m-0'
   div do
-    line_chart transactions
-                .between_dates(start_date, end_date)
+    line_chart filtered_transactions.count == 0 ? {} :  filtered_transactions
                 .joins(:category)
                 .group('categories.transaction_type')
                 .group_by_day('transactions.schedule')
