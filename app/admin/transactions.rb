@@ -2,6 +2,9 @@ ActiveAdmin.register Transaction do
 
   permit_params :account_id, :category_id, :amount, :note, :schedule, :status, :image
   
+  filter :account
+  filter :category
+
   form do |f|  
     f.semantic_errors *f.object.errors.keys
     f.input :image, as: :file
@@ -30,14 +33,14 @@ ActiveAdmin.register Transaction do
     column :status do |transaction|
       status_tag transaction.status
     end
-    column :created_at
+    column :schedule
     
     actions
   end 
 
   controller do
     def scoped_collection
-      super.includes :category
+      end_of_association_chain.includes(:category)
     end
   end
 end

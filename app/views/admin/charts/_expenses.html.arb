@@ -14,7 +14,7 @@ div class: 'chart-container' do
     line_chart transactions
                 .joins(:category)
                 .group('categories.transaction_type')
-                .group_by_day('transactions.created_at')
+                .group_by_day('transactions.schedule')
                 .sum(:amount)
                 .transform_keys { |key| [Category.transaction_types.keys[key.first].capitalize, key.last]}
   end
