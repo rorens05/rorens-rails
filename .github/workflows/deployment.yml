@@ -15,5 +15,5 @@ jobs:
             ls
             cd deployed/rorens-rails
             echo "Docker compose running"
-            docker-compose -v
-            docker-compose down && docker-compose up -d
+            /snap/bin/docker-compose -v
+            /snap/bin/docker-compose down && /snap/bin/docker-compose up -d
