@@ -1,4 +1,5 @@
 ActiveAdmin.register Category do
+  menu parent: "Settings"
   permit_params :name, :description, :transaction_type
 
   filter :transaction_type, as: :select, collection: Category.transaction_types

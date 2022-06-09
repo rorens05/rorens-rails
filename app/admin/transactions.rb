@@ -1,6 +1,6 @@
 ActiveAdmin.register Transaction do
 
-  permit_params :account_id, :category_id, :amount, :note, :schedule, :status, :image
+  permit_params :account_id, :category_id, :amount, :note, :schedule, :status, :image, tag_ids: []
   
   filter :account
   filter :category
@@ -11,6 +11,7 @@ ActiveAdmin.register Transaction do
     f.input :image, as: :file
     f.input :account, member_label: :label_name, include_blank: false
     f.input :category
+    f.input :tags
     f.input :amount
     f.input :note
     f.input :schedule, as: :datetime_picker
@@ -35,6 +36,25 @@ ActiveAdmin.register Transaction do
     
     actions
   end 
+
+  show do |transaction|
+    attributes_table do
+      row :note
+      row :account
+      row :category
+      row :tags
+      row :amount do |transaction|
+        format_currency(transaction.amount)
+      end
+      row :type do |transaction|
+        status_tag transaction.category.transaction_type
+      end
+      row :schedule
+      row :status do |transaction|
+        status_tag transaction.status
+      end
+    end
+  end
 
   controller do
     def scoped_collection
